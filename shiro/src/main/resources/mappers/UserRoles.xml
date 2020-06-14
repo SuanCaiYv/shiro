@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.shiro.dao.shiro.SysUserRolesMapper">
+    <resultMap id="userRoles" type="com.learn.shiro.pojo.shiro.SysUserRoles">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="role_id" property="roleId" jdbcType="BIGINT" javaType="Long"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles" useGeneratedKeys="true" keyColumn="id">
+        insert into sys_user_roles (user_id, role_id) VALUES (#{userId}, #{roleId})
+    </insert>
+    <delete id="delete" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        delete from sys_user_roles where user_id = #{userId} and role_id = #{roleId}
+    </delete>
+    <delete id="deleteByUser" parameterType="Long">
+        delete from sys_user_roles where user_id = #{userId}
+    </delete>
+    <update id="update" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        update sys_user_roles set user_id = #{userId} and role_id = #{roleId} where id = #{id}
+    </update>
+    <select id="select" resultMap="userRoles" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        select * from sys_user_roles where user_id = #{userId} and role_id = #{roleId}
+    </select>
+    <select id="selectByUser" parameterType="Long" resultType="Long">
+        select role_id from sys_user_roles where user_id = #{userId}
+    </select>
+</mapper>

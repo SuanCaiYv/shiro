@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.shiro.dao.shiro.SysUserMapper">
+    <resultMap id="userInfo" type="com.learn.shiro.pojo.shiro.SysUser">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="username" property="username" jdbcType="VARCHAR" javaType="String"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" javaType="String"/>
+        <result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR" javaType="String"/>
+        <result column="state" property="state" jdbcType="INTEGER" javaType="Integer"/>
+    </resultMap>
+    <select id="select" parameterType="String" resultMap="userInfo">
+        select * from sys_user where username = #{username}
+    </select>
+    <insert id="insert" parameterType="com.learn.shiro.pojo.shiro.SysUser" useGeneratedKeys="true" keyColumn="id">
+        insert into sys_user (username, nickname, password, salt, state) VALUES
+            (#{username}, #{nickname}, #{password}, #{salt}, #{state})
+    </insert>
+    <delete id="delete" parameterType="com.learn.shiro.pojo.shiro.SysUser">
+        delete from sys_user where username = #{username}
+    </delete>
+    <delete id="deleteByName" parameterType="String">
+        delete from sys_user where username = #{username}
+    </delete>
+    <update id="update" parameterType="com.learn.shiro.pojo.shiro.SysUser">
+        update sys_user set #{nickname} = #{nickname}, #{password} = #{password},
+                             salt = #{salt}, state = #{state}
+    </update>
+</mapper>

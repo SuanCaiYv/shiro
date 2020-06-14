@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.shiro.dao.shiro.SysRolePermissionsMapper">
+    <resultMap id="rolePermissions" type="com.learn.shiro.pojo.shiro.SysUserRoles">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="role_id" property="roleId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="permission_id" property="permissionId" jdbcType="BIGINT" javaType="Long"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles" useGeneratedKeys="true" keyColumn="id">
+        insert into sys_role_permissions (role_id, permission_id) VALUES (#{roleId}, #{permissionId})
+    </insert>
+    <delete id="delete" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        delete from sys_role_permissions where role_id = #{roleId} and permission_id = #{permissionId}
+    </delete>
+    <delete id="deleteByUser" parameterType="Long">
+        delete from sys_role_permissions where role_id = #{roleId}
+    </delete>
+    <update id="update" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        update sys_role_permissions set role_id = #{roleId} and permission_id = #{permissionId} where id = #{id}
+    </update>
+    <select id="select" resultMap="rolePermissions" parameterType="com.learn.shiro.pojo.shiro.SysUserRoles">
+        select * from sys_role_permissions where role_id = #{roleId} and permission_id = #{permissionId}
+    </select>
+    <select id="selectByUser" parameterType="Long" resultType="Long">
+        select permission_id from sys_role_permissions where role_id = #{roleId}
+    </select>
+</mapper>
