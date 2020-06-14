@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.shiro.dao.shiro.SysPermissionMapper">
+    <resultMap id="permission" type="com.learn.shiro.pojo.shiro.SysPermission">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="String"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR" javaType="String"/>
+        <result column="resource_type" property="resourceType" jdbcType="VARCHAR" javaType="String"/>
+        <result column="url" property="url" jdbcType="VARCHAR" javaType="String"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT" javaType="Long"/>
+        <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" javaType="String"/>
+        <result column="is_available" property="isAvailable" jdbcType="BOOLEAN" javaType="Boolean"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.learn.shiro.pojo.shiro.SysPermission" useGeneratedKeys="true" keyColumn="id">
+        insert into sys_permission (name, resource_type, url, `desc`, parent_id, parent_ids, is_available) VALUES
+                    (#{name}, #{resourceType}, #{url}, #{desc}, #{parentId}, #{parentIds}, #{isAvailable})
+    </insert>
+    <select id="select" parameterType="String" resultMap="permission">
+        select * from sys_permission where name = #{name}
+    </select>
+    <select id="selectById" parameterType="Long" resultMap="permission">
+        select * from sys_permission where id = #{id}
+    </select>
+    <delete id="delete" parameterType="com.learn.shiro.pojo.shiro.SysPermission">
+        delete from sys_permission where name = #{name}
+    </delete>
+    <delete id="deleteByName" parameterType="String">
+        delete from sys_permission where name = #{name}
+    </delete>
+    <update id="update" parameterType="com.learn.shiro.pojo.shiro.SysPermission">
+        update sys_permission set `desc` = #{desc}, resource_type = #{resourceType}, url = #{url}, parent_id = #{parentId},
+                              parent_ids = #{parentIds}, is_available = #{isAvailable} where name = #{name}
+    </update>
+</mapper>

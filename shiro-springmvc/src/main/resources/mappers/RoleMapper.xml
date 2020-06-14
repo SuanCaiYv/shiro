@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.learn.shiro.dao.shiro.SysRoleMapper">
+    <resultMap id="role" type="com.learn.shiro.pojo.shiro.SysRole">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="String"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR" javaType="String"/>
+        <result column="is_available" property="isAvailable" jdbcType="BOOLEAN" javaType="Boolean"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.learn.shiro.pojo.shiro.SysRole" useGeneratedKeys="true" keyColumn="id">
+        insert into sys_role (name, `desc`, is_available) VALUES
+                        (#{name}, #{desc}, #{isAvailable})
+    </insert>
+    <select id="select" parameterType="String" resultMap="role">
+        select * from sys_role where name = #{name}
+    </select>
+    <select id="selectById" parameterType="Long" resultMap="role">
+        select * from sys_role where id = #{id}
+    </select>
+    <delete id="delete" parameterType="com.learn.shiro.pojo.shiro.SysRole">
+        delete from sys_role where name = #{name}
+    </delete>
+    <delete id="deleteByName" parameterType="String">
+        delete from sys_role where name = #{name}
+    </delete>
+    <update id="update" parameterType="com.learn.shiro.pojo.shiro.SysRole">
+        update sys_role set `desc` = #{desc}, is_available = #{isAvailable} where name = #{name}
+    </update>
+</mapper>
